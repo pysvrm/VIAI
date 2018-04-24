@@ -2,10 +2,11 @@ package mx.com.vrm.viai.service;
 
 import java.util.List;
 
-import mx.com.vrm.viai.model.usr.Usuario;
+import mx.com.vrm.viai.model.User;
+
 
 public interface UsuariosService {
 
-	public List<Usuario> obtenerUsuarios();
-
+	public List<User> obtenerUsuarios();
+	public boolean insertarUsuarios(User usuario);
 }

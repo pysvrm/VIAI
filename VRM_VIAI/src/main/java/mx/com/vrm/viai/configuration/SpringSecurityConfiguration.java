@@ -30,12 +30,15 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/", "/login").permitAll().antMatchers("/home/**")
+		http.authorizeRequests().antMatchers("/", "/login", "/usuarios2").permitAll()
+								.antMatchers("/usuarios/**").access("hasRole('ROLE_ADMIN')")
+				//				.antMatchers("/usuarios2/**").access("hasRole('ROLE_ADMIN')")
+								.antMatchers("/home/**")
 				//***ONE ROLE***.access("hasRole('ROLE_ADMIN','ROLE_USER')").and().formLogin().loginPage("/login").usernameParameter("ssoId")
 				//***MANY ROLES***
-				.access("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')").and().formLogin().loginPage("/login").usernameParameter("ssoId")		
-				.passwordParameter("password").defaultSuccessUrl("/home").and().csrf().and().exceptionHandling()
-				.accessDeniedPage("/Access_Denied");
+								.access("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')").and().formLogin().loginPage("/login").usernameParameter("ssoId")		
+								.passwordParameter("password").defaultSuccessUrl("/home").and().csrf().and().exceptionHandling()
+								.accessDeniedPage("/Access_Denied");
 	}
 	
 	

@@ -8,18 +8,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import mx.com.vrm.viai.dao.UsuariosDAO;
-import mx.com.vrm.viai.model.usr.Usuario;
+import mx.com.vrm.viai.model.User;
 import mx.com.vrm.viai.service.UsuariosService;
 
 @Service
 @Transactional
 public class UsuarioServiceImpl implements UsuariosService {
-	
+
 	@Autowired
 	UsuariosDAO usuariosDAO;
 
-	public List<Usuario> obtenerUsuarios() {
+	public List<User> obtenerUsuarios() {
 		return usuariosDAO.obtenerUsuarios();
+	}
+
+	@Override
+	public boolean insertarUsuarios(User usuario) {
+		return usuariosDAO.insertarUsuarios(usuario);
 	}
 
 }

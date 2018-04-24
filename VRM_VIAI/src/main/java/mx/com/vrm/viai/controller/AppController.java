@@ -1,9 +1,7 @@
 package mx.com.vrm.viai.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -12,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,32 +20,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import mx.com.vrm.viai.dto.PropiedadesInicialesDTO;
-import mx.com.vrm.viai.dto.PropiedadesUsuariosDTO;
-//import mx.com.vrm.viai.model.CdpCDetalle;
-//import mx.com.vrm.viai.model.CdpCUsuario;
-//import mx.com.vrm.viai.model.CpdCPolitica;
-import mx.com.vrm.viai.service.PoliticasService;
-import mx.com.vrm.viai.service.SeccionesService;
-import mx.com.vrm.viai.service.UsuariosService;
-
 @Controller
 @RequestMapping("/")
 public class AppController {
 
-	
-	SeccionesService seccionesService;
-
-	
-	PoliticasService politicasService;
-
-	
-	UsuariosService usuariosService;
-
 	private static final Logger logger = LoggerFactory.getLogger(AppController.class);
-
-	public List<PropiedadesInicialesDTO> listaPropiedadesDTO = new ArrayList<PropiedadesInicialesDTO>();
-	public List<PropiedadesUsuariosDTO> listaPropiedadesUsuarios = new ArrayList<PropiedadesUsuariosDTO>();
 
 	@RequestMapping(value = { "/" }, method = RequestMethod.GET)
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
@@ -56,13 +32,9 @@ public class AppController {
 		{
 			logger.info("Inicio de controller");
 			Map<String, Object> myModel = new HashMap<String, Object>();
-			myModel.put("propiedades", listaPropiedadesDTO);
-			myModel.put("usuarios", listaPropiedadesUsuarios);
 			return new ModelAndView("login", "modelPropiedades", myModel);
 		}
 	}
-
-
 
 	@RequestMapping(value = { "/home" }, method = RequestMethod.GET)
 	public String homePage(ModelMap model) {
@@ -76,7 +48,7 @@ public class AppController {
 
 		if (principal instanceof UserDetails) {
 			userName = ((UserDetails) principal).getUsername();
-		} else {	
+		} else {
 			userName = principal.toString();
 		}
 		return userName;

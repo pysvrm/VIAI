@@ -29,6 +29,7 @@
 		<logback.classic>1.1.2</logback.classic>
 		<slf4j-api>1.7.7</slf4j-api>
 		<logback.core>1.1.2</logback.core>
+		<jackson.version>2.9.5</jackson.version>
 	</properties>
 	<dependencies>
 
@@ -212,9 +213,23 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>${mysql.version}</version>
 		</dependency>
+		
+		
+		<!-- REST SERVICES -->
+			<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-databind</artifactId>
+		    <version>${jackson.version}</version>
+		</dependency>
 		<!-- -->
+		
+		
+		
+		
+		
+	
 	</dependencies>
 	<build>
-		<finalName>VRM_VIAI_6.0</finalName>
+		<finalName>VRM_VIAI_7.0</finalName>
 	</build>
 </project>
