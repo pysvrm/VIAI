@@ -30,6 +30,7 @@
 		<slf4j-api>1.7.7</slf4j-api>
 		<logback.core>1.1.2</logback.core>
 		<jackson.version>2.9.5</jackson.version>
+		<jwt.version>0.7.0</jwt.version>
 	</properties>
 	<dependencies>
 
@@ -213,21 +214,32 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>${mysql.version}</version>
 		</dependency>
-		
-		
+
+
 		<!-- REST SERVICES -->
-			<dependency>
+		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
-		    <artifactId>jackson-databind</artifactId>
-		    <version>${jackson.version}</version>
+			<artifactId>jackson-databind</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+		
+		<!-- JWT -->
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>${jwt.version}</version>
 		</dependency>
 		<!-- -->
-		
-		
-		
-		
-		
-	
+
+		<!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt -->
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>0.9.0</version>
+		</dependency>
+
+
+
 	</dependencies>
 	<build>
 		<finalName>VRM_VIAI_7.0</finalName>

@@ -4,22 +4,36 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import static mx.com.vrm.viai.configuration.Constants.LOGIN_URL;
 
+@Configuration
 @EnableWebSecurity
 public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	private static final Logger logger = LoggerFactory.getLogger(SpringSecurityConfiguration.class);
 
 
+	
 	@Autowired	
 	UserDetailsService userDetailsService;
+	
+	public SpringSecurityConfiguration(UserDetailsService userDetailsService) {
+		this.userDetailsService = userDetailsService;
+	}
 	
 	@Autowired
 	public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {			 
@@ -27,21 +41,45 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		
 	}	
 
-
 	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/", "/login", "/usuarios2").permitAll()
-								.antMatchers("/usuarios/**").access("hasRole('ROLE_ADMIN')")
-				//				.antMatchers("/usuarios2/**").access("hasRole('ROLE_ADMIN')")
-								.antMatchers("/home/**")
-				//***ONE ROLE***.access("hasRole('ROLE_ADMIN','ROLE_USER')").and().formLogin().loginPage("/login").usernameParameter("ssoId")
-				//***MANY ROLES***
-								.access("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')").and().formLogin().loginPage("/login").usernameParameter("ssoId")		
-								.passwordParameter("password").defaultSuccessUrl("/home").and().csrf().and().exceptionHandling()
-								.accessDeniedPage("/Access_Denied");
+	protected void configure(HttpSecurity httpSecurity) throws Exception {
+		/*
+		 * 1. Se desactiva el uso de cookies
+		 * 2. Se activa la configuración CORS con los valores por defecto
+		 * 3. Se desactiva el filtro CSRF
+		 * 4. Se indica que el login no requiere autenticación
+		 * 5. Se indica que el resto de URLs esten securizadas
+		 */
+		httpSecurity
+			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+			.cors().and()
+			.csrf().disable()
+			.authorizeRequests()
+			.antMatchers("/", "/login").permitAll()
+			.antMatchers(HttpMethod.POST, LOGIN_URL).permitAll()
+			.anyRequest().authenticated().and()
+				.addFilter(new JWTAuthenticationFilter(authenticationManager()))
+				.addFilter(new JWTAuthorizationFilter(authenticationManager()));
 	}
 	
 	
+
+	
+	
+	@Override
+	public void configure(AuthenticationManagerBuilder auth) throws Exception {
+		// Se define la clase que recupera los usuarios y el algoritmo para procesar las passwords
+		auth.userDetailsService(userDetailsService).passwordEncoder(passwordencoder());
+	}
+
+	@Bean
+	CorsConfigurationSource corsConfigurationSource() {
+		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
+		return source;
+	}
+	
+
 	@Bean(name="passwordEncoder")
     public PasswordEncoder passwordencoder(){
     	return new BCryptPasswordEncoder();

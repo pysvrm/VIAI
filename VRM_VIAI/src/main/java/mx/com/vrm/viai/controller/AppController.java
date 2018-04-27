@@ -60,10 +60,10 @@ public class AppController {
 		return "Access_Denied";
 	}
 
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String loginPage() {
-		return "login";
-	}
+//	@RequestMapping(value = "/login", method = RequestMethod.GET)
+//	public String loginPage() {
+//		return "login";
+//	}
 
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logoutPage(HttpServletRequest request, HttpServletResponse response) {

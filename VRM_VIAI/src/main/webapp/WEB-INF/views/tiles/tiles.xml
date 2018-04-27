@@ -24,11 +24,11 @@
 	</definition>
 
 
-	<!-- Login Page -->
+	<!-- Login Page 
 	<definition name="login" extends="base-definitionHome">
 		<put-attribute name="title" value="Login VIAI" />
 		<put-attribute name="body" value="/WEB-INF/views/login/login.jsp" />
-	</definition>
+	</definition>-->
 
 	<!-- Accesdenied Page -->
 	<definition name="Access_Denied" extends="base-definitionHome">
