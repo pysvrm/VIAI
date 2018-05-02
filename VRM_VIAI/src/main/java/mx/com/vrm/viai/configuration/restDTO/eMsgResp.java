@@ -23,7 +23,7 @@ public enum eMsgResp {
 	BAD_RSP(3, "Error en origen"),
 
 	/** The bad rsp sq. */
-	BAD_RSP_SQ(4, "Error en respuesta Sicotra"),
+	BAD_RSP_BD(4, "Error en respuesta en la DB"),
 
 	/** The bad rsp io. */
 	BAD_RSP_IO(5, "Error, operacion interrupida"),

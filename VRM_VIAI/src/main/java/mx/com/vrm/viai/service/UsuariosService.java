@@ -1,7 +1,6 @@
 package mx.com.vrm.viai.service;
 
-import java.util.List;
-
+import mx.com.vrm.viai.configuration.restDTO.ResponseObj;
 import mx.com.vrm.viai.model.User;
 
 // TODO: Auto-generated Javadoc
@@ -15,7 +14,7 @@ public interface UsuariosService {
 	 *
 	 * @return the list
 	 */
-	public List<User> obtenerUsuarios();
+	public ResponseObj obtenerUsuarios();
 
 	/**
 	 * Insertar usuarios.
