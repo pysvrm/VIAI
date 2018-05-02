@@ -1,4 +1,4 @@
-package mx.com.vrm.viai.controller;
+package mx.com.vrm.viai.controller.rest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,14 +20,26 @@ import mx.com.vrm.viai.configuration.restDTO.ResponseObj;
 import mx.com.vrm.viai.model.User;
 import mx.com.vrm.viai.service.UsuariosService;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class AppControllerRest.
+ */
 @RestController
 @RequestMapping("/rest")
 public class AppControllerRest {
-	
+
+	/** The Constant logger. */
 	private static final Logger logger = LoggerFactory.getLogger(AppControllerRest.class);
+
+	/** The usuarios service. */
 	@Autowired
 	UsuariosService usuariosService;
-		
+
+	/**
+	 * List all users.
+	 *
+	 * @return the list
+	 */
 	@GetMapping("/usuarios/")
 	public List<User> listAllUsers() {
 		List<User> users = new ArrayList<User>();

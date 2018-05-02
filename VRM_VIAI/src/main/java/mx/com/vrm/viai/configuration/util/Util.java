@@ -5,8 +5,13 @@ import java.util.Formatter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Util.
+ */
 public class Util {
 
+	/** The log. */
 	private static Logger log = LoggerFactory.getLogger(Util.class);
 
 	/**

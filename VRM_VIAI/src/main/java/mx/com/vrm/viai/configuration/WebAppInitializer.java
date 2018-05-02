@@ -9,9 +9,19 @@ import org.springframework.web.context.support.AnnotationConfigWebApplicationCon
 import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.DispatcherServlet;
 
-
+// TODO: Auto-generated Javadoc
+/**
+ * The Class WebAppInitializer.
+ */
 public class WebAppInitializer implements WebApplicationInitializer {
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.springframework.web.WebApplicationInitializer#onStartup(javax.servlet
+	 * .ServletContext)
+	 */
 	public void onStartup(ServletContext container) throws ServletException {
 
 		AnnotationConfigWebApplicationContext ctx = new AnnotationConfigWebApplicationContext();
@@ -22,8 +32,8 @@ public class WebAppInitializer implements WebApplicationInitializer {
 
 		servlet.setLoadOnStartup(1);
 		servlet.addMapping("/");
-		
-		 container.addFilter("springSecurityFilterChain", new DelegatingFilterProxy("springSecurityFilterChain"))
-         .addMappingForUrlPatterns(null, false, "/*");
+
+		container.addFilter("springSecurityFilterChain", new DelegatingFilterProxy("springSecurityFilterChain"))
+				.addMappingForUrlPatterns(null, false, "/*");
 	}
 }

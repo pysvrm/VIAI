@@ -20,28 +20,57 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class AppController.
+ */
 @Controller
 @RequestMapping("/")
 public class AppController {
 
+	/** The Constant logger. */
 	private static final Logger logger = LoggerFactory.getLogger(AppController.class);
 
+	/**
+	 * Login page.
+	 *
+	 * @param request
+	 *            the request
+	 * @param response
+	 *            the response
+	 * @return the string
+	 * @throws ServletException
+	 *             the servlet exception
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
+	 */
 	@RequestMapping(value = { "/" }, method = RequestMethod.GET)
-	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
+	public String loginPage(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		{
-			logger.info("Inicio de controller");
-			Map<String, Object> myModel = new HashMap<String, Object>();
-			return new ModelAndView("login", "modelPropiedades", myModel);
+			logger.info("Login");
+			return "home";
 		}
 	}
 
-	@RequestMapping(value = { "/home" }, method = RequestMethod.GET)
+	/**
+	 * Home page.
+	 *
+	 * @param model
+	 *            the model
+	 * @return the string
+	 */
+	@RequestMapping(value = { "/principal" }, method = RequestMethod.GET)
 	public String homePage(ModelMap model) {
 		System.out.println("HOLA MUNDO HOME2");
-		return "home";
+		return "principal";
 	}
 
+	/**
+	 * Gets the principal.
+	 *
+	 * @return the principal
+	 */
 	private String getPrincipal() {
 		String userName = null;
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -54,23 +83,44 @@ public class AppController {
 		return userName;
 	}
 
+	/**
+	 * Access denied page.
+	 *
+	 * @param model
+	 *            the model
+	 * @return the string
+	 */
 	@RequestMapping(value = "/Access_Denied", method = RequestMethod.GET)
 	public String accessDeniedPage(ModelMap model) {
 		model.addAttribute("user", getPrincipal());
 		return "Access_Denied";
 	}
 
-//	@RequestMapping(value = "/login", method = RequestMethod.GET)
-//	public String loginPage() {
-//		return "login";
-//	}
+	/**
+	 * Login page.
+	 *
+	 * @return the string
+	 */
+	@RequestMapping(value = "/home", method = RequestMethod.GET)
+	public String loginPage() {
+		return "home";
+	}
 
+	/**
+	 * Logout page.
+	 *
+	 * @param request
+	 *            the request
+	 * @param response
+	 *            the response
+	 * @return the string
+	 */
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if (auth != null) {
 			new SecurityContextLogoutHandler().logout(request, response, auth);
 		}
-		return "redirect:/login?logout";
+		return "redirect:/home?logout";
 	}
 }

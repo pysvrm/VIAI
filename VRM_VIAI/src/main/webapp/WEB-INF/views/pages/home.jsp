@@ -31,7 +31,7 @@
 					href="<c:url value="/logout" />">Salir</a></li>
 				<li class="nav-item mx-0 mx-lg-1"><sec:authorize
 						access="hasRole('ROLE_ADMIN')">
-    Este contenido se muestra si el usuario tiene el privilegio: <b>ROLE_ADMIN</b>.
+    Bienvenido Administrador: <b>ROLE_ADMIN</b>.
 </sec:authorize></li>
 
 			</ul>

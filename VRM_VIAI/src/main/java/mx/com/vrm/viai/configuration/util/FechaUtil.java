@@ -6,12 +6,14 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+// TODO: Auto-generated Javadoc
 /**
  * Componente util con funciones de fecha.
  * 
  */
 public class FechaUtil {
 
+	/** The meses. */
 	private static Map<String, Integer> meses;
 
 	static {
@@ -44,6 +46,9 @@ public class FechaUtil {
 
 	// /**
 	// * Para evitar instanciaciones
+	/**
+	 * Instantiates a new fecha util.
+	 */
 	// */
 	private FechaUtil() {
 	}
@@ -87,9 +92,9 @@ public class FechaUtil {
 		fechaEvento.set(Calendar.YEAR, anioFecha);
 		fechaEvento.set(Calendar.HOUR, 0);
 		fechaEvento.set(Calendar.MINUTE, 0);
-		//fechaEvento.set(Calendar.SECOND, 0);
-		//fechaEvento.set(Calendar.MILLISECOND, 0);
-		
+		// fechaEvento.set(Calendar.SECOND, 0);
+		// fechaEvento.set(Calendar.MILLISECOND, 0);
+
 		return fechaEvento.getTime();
 	}
 
@@ -117,20 +122,40 @@ public class FechaUtil {
 		return calEvento.getTime();
 	}
 
-	
+	/**
+	 * Format date DDMMYYYHHMMSS.
+	 *
+	 * @param fecha
+	 *            the fecha
+	 * @return the string
+	 */
 	public static String formatDateDDMMYYYHHMMSS(Date fecha) {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 		return sdf.format(fecha);
 	}
-	
+
+	/**
+	 * Format date DDMMYYYHHMM.
+	 *
+	 * @param fecha
+	 *            the fecha
+	 * @return the string
+	 */
 	public static String formatDateDDMMYYYHHMM(Date fecha) {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		return sdf.format(fecha);
 	}
-	
+
+	/**
+	 * Format date DDMMYY.
+	 *
+	 * @param fecha
+	 *            the fecha
+	 * @return the string
+	 */
 	public static String formatDateDDMMYY(Date fecha) {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
 		return sdf.format(fecha);
 	}
 
-}	
+}

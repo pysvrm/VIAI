@@ -8,14 +8,19 @@ import org.springframework.stereotype.Service;
 import mx.com.vrm.viai.dao.SeccionesDAO;
 import mx.com.vrm.viai.service.SeccionesService;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class SeccionesServiceImpl.
+ */
 @Service
 @Transactional
 public class SeccionesServiceImpl implements SeccionesService {
 
-	//@Autowired
+	/** The secciones DAO. */
+	// @Autowired
 	SeccionesDAO seccionesDAO;
+
+	/** The Constant logger. */
 	private static final Logger logger = LoggerFactory.getLogger(SeccionesServiceImpl.class);
-
-
 
 }

@@ -4,12 +4,30 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Regex.
+ */
 public class Regex {
 
+	/**
+	 * Escape.
+	 *
+	 * @param pattern
+	 *            the pattern
+	 * @return the string
+	 */
 	public static String escape(final String pattern) {
 		return Pattern.quote(pattern);
 	}
 
+	/**
+	 * Gets the lines.
+	 *
+	 * @param arg
+	 *            the arg
+	 * @return the lines
+	 */
 	public static String[] getLines(final String arg) {
 		if (arg == null) {
 			return new String[] {};
@@ -24,59 +42,153 @@ public class Regex {
 		}
 	}
 
+	/**
+	 * Matches.
+	 *
+	 * @param str
+	 *            the str
+	 * @param pat
+	 *            the pat
+	 * @return true, if successful
+	 */
 	public static boolean matches(final Object str, final Pattern pat) {
 		return new Regex(str, pat).matches();
 	}
 
+	/**
+	 * Matches.
+	 *
+	 * @param page
+	 *            the page
+	 * @param string
+	 *            the string
+	 * @return true, if successful
+	 */
 	public static boolean matches(final Object page, final String string) {
 		return new Regex(page, string).matches();
 	}
 
+	/**
+	 * Replace.
+	 *
+	 * @param text
+	 *            the text
+	 * @param regex
+	 *            the regex
+	 * @param replacement
+	 *            the replacement
+	 * @return the string
+	 */
 	public static String replace(final String text, final String regex, final String replacement) {
 
 		return Pattern.compile(regex, Pattern.DOTALL | Pattern.MULTILINE).matcher(text).replaceAll(replacement);
 	}
 
+	/** The matcher. */
 	private Matcher matcher;
 
+	/** The mem opt. */
 	private boolean memOpt = true;
 
+	/**
+	 * Instantiates a new regex.
+	 *
+	 * @param matcher
+	 *            the matcher
+	 */
 	public Regex(final Matcher matcher) {
 		if (matcher != null) {
 			this.matcher = matcher;
 		}
 	}
 
+	/**
+	 * Instantiates a new regex.
+	 *
+	 * @param data
+	 *            the data
+	 * @param pattern
+	 *            the pattern
+	 */
 	public Regex(final Object data, final Pattern pattern) {
 		this(data.toString(), pattern);
 	}
 
+	/**
+	 * Instantiates a new regex.
+	 *
+	 * @param data
+	 *            the data
+	 * @param pattern
+	 *            the pattern
+	 */
 	public Regex(final Object data, final String pattern) {
 		this(data.toString(), pattern);
 	}
 
+	/**
+	 * Instantiates a new regex.
+	 *
+	 * @param data
+	 *            the data
+	 * @param pattern
+	 *            the pattern
+	 * @param flags
+	 *            the flags
+	 */
 	public Regex(final Object data, final String pattern, final int flags) {
 		this(data.toString(), pattern, flags);
 	}
 
+	/**
+	 * Instantiates a new regex.
+	 *
+	 * @param data
+	 *            the data
+	 * @param pattern
+	 *            the pattern
+	 */
 	public Regex(final String data, final Pattern pattern) {
 		if (data != null && pattern != null) {
 			this.matcher = pattern.matcher(data);
 		}
 	}
 
+	/**
+	 * Instantiates a new regex.
+	 *
+	 * @param data
+	 *            the data
+	 * @param pattern
+	 *            the pattern
+	 */
 	public Regex(final String data, final String pattern) {
 		if (data != null && pattern != null) {
 			this.matcher = Pattern.compile(pattern, Pattern.CASE_INSENSITIVE | Pattern.DOTALL).matcher(data);
 		}
 	}
 
+	/**
+	 * Instantiates a new regex.
+	 *
+	 * @param data
+	 *            the data
+	 * @param pattern
+	 *            the pattern
+	 * @param flags
+	 *            the flags
+	 */
 	public Regex(final String data, final String pattern, final int flags) {
 		if (data != null && pattern != null) {
 			this.matcher = Pattern.compile(pattern, flags).matcher(data);
 		}
 	}
 
+	/**
+	 * Count.
+	 *
+	 * @return the int
+	 */
 	public int count() {
 		if (this.matcher == null) {
 			return 0;
@@ -91,6 +203,13 @@ public class Regex {
 		}
 	}
 
+	/**
+	 * Gets the column.
+	 *
+	 * @param x
+	 *            the x
+	 * @return the column
+	 */
 	public String[] getColumn(int x) {
 		if (this.matcher == null) {
 			return null;
@@ -111,6 +230,13 @@ public class Regex {
 		}
 	}
 
+	/**
+	 * Gets the match.
+	 *
+	 * @param group
+	 *            the group
+	 * @return the match
+	 */
 	public String getMatch(final int group) {
 		if (this.matcher != null) {
 			final Matcher matcher = this.matcher;
@@ -126,6 +252,15 @@ public class Regex {
 		return null;
 	}
 
+	/**
+	 * Gets the match.
+	 *
+	 * @param entry
+	 *            the entry
+	 * @param group
+	 *            the group
+	 * @return the match
+	 */
 	public String getMatch(int entry, final int group) {
 		if (this.matcher != null) {
 			final Matcher matcher = this.matcher;
@@ -147,6 +282,11 @@ public class Regex {
 		return null;
 	}
 
+	/**
+	 * Gets the matcher.
+	 *
+	 * @return the matcher
+	 */
 	public Matcher getMatcher() {
 		if (this.matcher != null) {
 			this.matcher.reset();
@@ -154,6 +294,11 @@ public class Regex {
 		return this.matcher;
 	}
 
+	/**
+	 * Gets the matches.
+	 *
+	 * @return the matches
+	 */
 	public String[][] getMatches() {
 		if (this.matcher == null) {
 			return null;
@@ -185,6 +330,13 @@ public class Regex {
 		}
 	}
 
+	/**
+	 * Gets the row.
+	 *
+	 * @param y
+	 *            the y
+	 * @return the row
+	 */
 	public String[] getRow(final int y) {
 		if (this.matcher != null) {
 			final Matcher matcher = this.matcher;
@@ -211,6 +363,11 @@ public class Regex {
 		return null;
 	}
 
+	/**
+	 * Matches.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean matches() {
 		final Matcher matcher = this.matcher;
 		if (matcher == null) {
@@ -221,15 +378,33 @@ public class Regex {
 		}
 	}
 
+	/**
+	 * Sets the matcher.
+	 *
+	 * @param matcher
+	 *            the new matcher
+	 */
 	public void setMatcher(final Matcher matcher) {
 		this.matcher = matcher;
 	}
 
+	/**
+	 * Sets the memory optimized.
+	 *
+	 * @param t
+	 *            the t
+	 * @return the regex
+	 */
 	public Regex setMemoryOptimized(final boolean t) {
 		this.memOpt = t;
 		return this;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
 		final StringBuilder ret = new StringBuilder();

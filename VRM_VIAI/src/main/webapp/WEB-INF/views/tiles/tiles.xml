@@ -24,21 +24,22 @@
 	</definition>
 
 
-	<!-- Login Page 
-	<definition name="login" extends="base-definitionHome">
+	<!-- Login Page -->
+	<definition name="home" extends="base-definitionHome">
 		<put-attribute name="title" value="Login VIAI" />
 		<put-attribute name="body" value="/WEB-INF/views/login/login.jsp" />
-	</definition>-->
+	</definition>
 
 	<!-- Accesdenied Page -->
 	<definition name="Access_Denied" extends="base-definitionHome">
 		<put-attribute name="title" value="Acces denied VIAI" />
-		<put-attribute name="body" value="/WEB-INF/views/error/accesDenied.jsp" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/error/accesDenied.jsp" />
 	</definition>
 
 
 	<!-- Home Page -->
-	<definition name="home" extends="base-definitionHome">
+	<definition name="principal" extends="base-definitionHome">
 		<put-attribute name="title" value="Bienvenido VIAI" />
 		<put-attribute name="body" value="/WEB-INF/views/pages/home.jsp" />
 	</definition>
