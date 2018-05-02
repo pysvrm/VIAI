@@ -71,30 +71,59 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		 * 4. Se indica que el login no requiere autenticación
 		 * 5. Se indica que el resto de URLs esten securizadas
 		 */
+//		httpSecurity
+//			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//			.and()
+//				.cors()
+//			.and()
+//				.csrf().disable()
+//				.authorizeRequests()
+//				.antMatchers(HttpMethod.POST, LOGIN_URL, "/home/**").permitAll()
+//				.anyRequest()
+//				.authenticated()
+//				.antMatchers("/", "/login","/home").permitAll()
+//				.antMatchers("/principal/**")
+//				.access("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+//				.and()
+//				.formLogin()
+//				.loginPage("/home")
+//				.usernameParameter("ssoId")		
+//				.passwordParameter("password").defaultSuccessUrl("/home")
+//				.and().exceptionHandling()
+//				.accessDeniedPage("/Access_Denied")
+//			.and()
+//				.addFilter(new JWTAuthenticationFilter(authenticationManager()))
+//				.addFilter(new JWTAuthorizationFilter(authenticationManager()))
+//			;
+		
+		
 		httpSecurity
-			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+		.authorizeRequests()
+			.antMatchers(HttpMethod.POST, LOGIN_URL).permitAll()
+			//***MANY ROLES***
+			//.anyRequest()
+			//.authenticated()
+			.antMatchers("/","/home").permitAll()
+			.antMatchers("/principal/**")
+			.access("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
 			.and()
-				.cors()
+			.formLogin()
+			.loginPage("/home")
+			.usernameParameter("ssoId")		
+			.passwordParameter("password")
+			.defaultSuccessUrl("/principal")
 			.and()
-				.csrf().disable()
-				.authorizeRequests()
-				.antMatchers(HttpMethod.POST, LOGIN_URL, "/home/**").permitAll()
-				.anyRequest()
-				.authenticated()
-				.antMatchers("/", "/login","/home").permitAll()
-				.antMatchers("/principal/**")
-				.access("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
-				.and()
-				.formLogin()
-				.loginPage("/home")
-				.usernameParameter("ssoId")		
-				.passwordParameter("password").defaultSuccessUrl("/home")
-				.and().exceptionHandling()
-				.accessDeniedPage("/Access_Denied")
+			.csrf().disable()
+			.exceptionHandling()
+			.accessDeniedPage("/Access_Denied")
 			.and()
-				.addFilter(new JWTAuthenticationFilter(authenticationManager()))
-				.addFilter(new JWTAuthorizationFilter(authenticationManager()))
-			;
+			.cors()
+			.and()
+			.addFilter(new JWTAuthenticationFilter(authenticationManager()))
+			.addFilter(new JWTAuthorizationFilter(authenticationManager()));	
+		
+		
+		
 	}
 	
 	@Override
