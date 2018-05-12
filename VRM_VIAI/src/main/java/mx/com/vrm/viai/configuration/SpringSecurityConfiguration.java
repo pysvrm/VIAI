@@ -1,5 +1,6 @@
 package mx.com.vrm.viai.configuration;
 
+
 import static mx.com.vrm.viai.configuration.Constants.LOGIN_URL;
 
 import org.slf4j.Logger;
@@ -19,6 +20,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import mx.com.vrm.viai.configuration.JWTAuthenticationFilter;
+import mx.com.vrm.viai.configuration.JWTAuthorizationFilter;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -69,13 +73,16 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	 */
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
-		httpSecurity.authorizeRequests().antMatchers(HttpMethod.POST, LOGIN_URL).permitAll().antMatchers("/", "/home")
-				.permitAll().antMatchers("/principal/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')").and()
-				.formLogin().loginPage("/home").usernameParameter("ssoId").passwordParameter("password")
-				.defaultSuccessUrl("/principal").and().csrf().disable().exceptionHandling()
-				.accessDeniedPage("/Access_Denied").and().cors().and()
-				.addFilter(new JWTAuthenticationFilter(authenticationManager()))
-				.addFilter(new JWTAuthorizationFilter(authenticationManager()));
+		httpSecurity
+		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+		.cors().and()
+		.csrf().disable()
+		.authorizeRequests()
+		.antMatchers("/", "/login").permitAll()
+		.antMatchers(HttpMethod.POST, LOGIN_URL).permitAll()
+		.anyRequest().authenticated().and()
+			.addFilter(new JWTAuthenticationFilter(authenticationManager()))
+			.addFilter(new JWTAuthorizationFilter(authenticationManager()));
 
 	}
 
