@@ -43,4 +43,10 @@ public class UsuarioServiceImpl implements UsuariosService {
 		return usuariosDAO.insertarUsuarios(usuario);
 	}
 
+	@Override
+	public ResponseObj obtenerUsuarioPorNombre(String nombreUsuario) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

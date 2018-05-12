@@ -30,6 +30,7 @@ public class UsuariosDAOImpl extends CrudDataManagerImpl<User, Serializable> imp
 
 	/** The lista usuarios. */
 	public List<User> listaUsuarios = new ArrayList<User>();
+	public User usuario = new User();
 
 	/*
 	 * (non-Javadoc)
@@ -65,6 +66,18 @@ public class UsuariosDAOImpl extends CrudDataManagerImpl<User, Serializable> imp
 			return false;
 		}
 		return false;
+	}
+
+	@Override
+	public ResponseObj obtenerUsuarioPorNombre(String nombreUsuario) {
+		try {
+			usuario = (User) manager
+					.createQuery("SELECT uu.id, uu.correo FROM User uu, UserRole rr WHERE uu.id.idusers ="+nombreUsuario, User.class);
+		} catch (Exception e) {
+			throw new ServiceException(eCodResp.KO_BAD_RSP, eMsgResp.BAD_RSP_BD, responseObj.getResponse());
+		}
+
+		return new ResponseObj(eCodResp.OK, eMsgResp.OK, eTypeError.MDLWARE, listaUsuarios);
 	}
 
 }

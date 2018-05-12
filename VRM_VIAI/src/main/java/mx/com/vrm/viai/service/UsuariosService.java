@@ -24,4 +24,6 @@ public interface UsuariosService {
 	 * @return true, if successful
 	 */
 	public boolean insertarUsuarios(User usuario);
+	
+	public ResponseObj obtenerUsuarioPorNombre(String nombreUsuario); 
 }

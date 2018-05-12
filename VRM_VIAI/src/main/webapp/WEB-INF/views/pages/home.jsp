@@ -1,7 +1,38 @@
 <!--Welcome.jsp-->
 <%@ include file="/WEB-INF/common/taglibs.jsp"%>
 
-<!-- Navigation -->
+<script>
+	var ctx = document.getElementById("myChart");
+	var myChart = new Chart(ctx, {
+		type : 'bar',
+		data : {
+			labels : [ "Red", "Blue", "Yellow", "Green", "Purple", "Orange" ],
+			datasets : [ {
+				label : '# of Votes',
+				data : [ 12, 19, 3, 5, 2, 3 ],
+				backgroundColor : [ 'rgba(255, 99, 132, 0.2)',
+						'rgba(54, 162, 235, 0.2)', 'rgba(255, 206, 86, 0.2)',
+						'rgba(75, 192, 192, 0.2)', 'rgba(153, 102, 255, 0.2)',
+						'rgba(255, 159, 64, 0.2)' ],
+				borderColor : [ 'rgba(255,99,132,1)', 'rgba(54, 162, 235, 1)',
+						'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)',
+						'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)' ],
+				borderWidth : 1
+			} ]
+		},
+		options : {
+			scales : {
+				yAxes : [ {
+					ticks : {
+						beginAtZero : true
+					}
+				} ]
+			}
+		}
+	});
+</script>
+
+
 <nav
 	class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase"
 	id="mainNav">
@@ -29,10 +60,10 @@
 				<li class="nav-item mx-0 mx-lg-1"><a
 					class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
 					href="<c:url value="/logout" />">Salir</a></li>
-				<li class="nav-item mx-0 mx-lg-1"><sec:authorize
+				<li class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" ><sec:authorize
 						access="hasRole('ROLE_ADMIN')">
-    Bienvenido Administrador: <b>ROLE_ADMIN</b>.
-</sec:authorize></li>
+						<h2 class="font-weight-light mb-0">Bienvenido Administrador</h2>
+					</sec:authorize></li>
 
 			</ul>
 		</div>
@@ -78,7 +109,7 @@
 							<i class="fa fa-search-plus fa-3x"></i>
 						</div>
 					</div> <img class="img-fluid"
-					src="resources/freelance/img/portfolio/cake.png" alt="">
+					src="resources/freelance/img/portfolio/cake.png" alt="">}
 				</a>
 			</div>
 			<div class="col-md-6 col-lg-4">
@@ -321,16 +352,15 @@
 				<div class="col-lg-8 mx-auto">
 					<h2 class="text-secondary text-uppercase mb-0">Project Name</h2>
 					<hr class="star-dark mb-5">
-					<img class="img-fluid mb-5"
-						src="resources/freelance/img/portfolio/cake.png" alt="">
-					<p class="mb-5">Lorem ipsum dolor sit amet, consectetur
-						adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias
-						magnam, recusandae quos quis inventore quisquam velit asperiores,
-						vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
-					<a
-						class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss"
-						href="#"> <i class="fa fa-close"></i> Close Project
-					</a>
+					<div id="canvas-holder" style="width: 100%">
+						<canvas id="chart-area"></canvas>
+					</div>
+					<button id="randomizeData">Randomize Data</button>
+					<button id="addDataset">Add Dataset</button>
+					<button id="removeDataset">Remove Dataset</button>
+					<button id="addData">Add Data</button>
+					<button id="removeData">Remove Data</button>
+					<button id="changeCircleSize">Semi/Full Circle</button>
 				</div>
 			</div>
 		</div>
@@ -444,3 +474,5 @@
 		</div>
 	</div>
 </div>
+
+
