@@ -1,8 +1,5 @@
 package mx.com.vrm.viai.configuration;
 
-
-import static mx.com.vrm.viai.configuration.Constants.LOGIN_URL;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,16 +10,13 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-
-import mx.com.vrm.viai.configuration.JWTAuthenticationFilter;
-import mx.com.vrm.viai.configuration.JWTAuthorizationFilter;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -74,15 +68,15 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
 		httpSecurity
-		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-		.cors().and()
-		.csrf().disable()
-		.authorizeRequests()
-		.antMatchers("/", "/login").permitAll()
-		.antMatchers(HttpMethod.POST, LOGIN_URL).permitAll()
-		.anyRequest().authenticated().and()
-			.addFilter(new JWTAuthenticationFilter(authenticationManager()))
-			.addFilter(new JWTAuthorizationFilter(authenticationManager()));
+				.addFilterBefore(new JWTAuthenticationFilter(authenticationManager()), BasicAuthenticationFilter.class)
+				.authorizeRequests().antMatchers(HttpMethod.POST, "/login").permitAll().antMatchers("/", "/home")
+				.access("hasRole('ROLE_ANONYMOUS')").antMatchers("/principal/**")
+				.access("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')").antMatchers("/resources/**").permitAll()
+				.anyRequest().authenticated().and().formLogin().loginPage("/home").usernameParameter("ssoId")
+				.passwordParameter("password").defaultSuccessUrl("/principal").and().exceptionHandling()
+				.accessDeniedPage("/Access_Denied").and().csrf().disable()
+				.addFilter(new JWTAuthenticationFilter(authenticationManager()))
+				.addFilter(new JWTAuthorizationFilter(authenticationManager()));
 
 	}
 

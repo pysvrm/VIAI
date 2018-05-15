@@ -1,4 +1,4 @@
-package mx.com.vrm.viai.controller;
+package mx.com.vrm.viai.controller.rest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

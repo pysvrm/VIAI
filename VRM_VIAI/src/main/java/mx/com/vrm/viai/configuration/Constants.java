@@ -22,6 +22,6 @@ public class Constants {
 	public static final String SUPER_SECRET_KEY = "p0l1t3cn1c0&";
 
 	/** The Constant TOKEN_EXPIRATION_TIME. */
-	public static final long TOKEN_EXPIRATION_TIME = 600000; // 10 day
+	public static final long TOKEN_EXPIRATION_TIME = 60000; // 1 minuto
 
 }
