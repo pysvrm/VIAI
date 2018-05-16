@@ -43,5 +43,5 @@ public class AppControllerRest {
 		responseObj = usuariosService.obtenerUsuarios();
 		return responseObj;
 	}
-	
+
 }

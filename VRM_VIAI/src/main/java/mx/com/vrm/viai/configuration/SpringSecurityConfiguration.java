@@ -69,8 +69,10 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
 		httpSecurity
 				.addFilterBefore(new JWTAuthenticationFilter(authenticationManager()), BasicAuthenticationFilter.class)
-				.authorizeRequests().antMatchers(HttpMethod.POST, "/login").permitAll().antMatchers("/", "/home")
-				.access("hasRole('ROLE_ANONYMOUS')").antMatchers("/principal/**")
+				.authorizeRequests().antMatchers(HttpMethod.POST, "/login").permitAll()
+				.antMatchers("/", "/home").access("hasRole('ROLE_ANONYMOUS')")
+				.antMatchers("/rest/**").authenticated()
+				.antMatchers("/principal/**")
 				.access("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')").antMatchers("/resources/**").permitAll()
 				.anyRequest().authenticated().and().formLogin().loginPage("/home").usernameParameter("ssoId")
 				.passwordParameter("password").defaultSuccessUrl("/principal").and().exceptionHandling()
